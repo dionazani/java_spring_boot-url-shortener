@@ -3,6 +3,8 @@ package org.arjuna.urlshortener.context.transaction.shortener;
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import org.arjuna.urlshortener.infrastructure.entity.UrlEntity;
@@ -51,12 +53,16 @@ public class ShortenerServiceImpl implements ShortenerService {
 		urlEntity.setStepCreated(step);
 		urlRepository.save(urlEntity);
 		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("urlShort", urlShort);
+		
 		responseModel = new ResponseModel();
 		responseModel.setHttpStatusCode(200);
 		responseModel.setResponseCode("000");
 		responseModel.setResponseMessage("success");
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		responseModel.setTimeStamp(timestamp);
+		responseModel.setData(map);
 		
 		return responseModel;
 	}
