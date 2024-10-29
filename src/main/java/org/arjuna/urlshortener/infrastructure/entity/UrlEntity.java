@@ -2,13 +2,12 @@ package org.arjuna.urlshortener.infrastructure.entity;
 
 import java.sql.Timestamp;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
-import jakarta.validation.constraints.NotBlank;
 
 @Data
 @Entity
@@ -16,16 +15,7 @@ import jakarta.validation.constraints.NotBlank;
 public class UrlEntity {
 
 	@Id
-	private String id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
 	
-	@NotBlank(message="urlOriginal cannot be empty")
-	private String urlOriginal;
-	
-	@NotBlank(message="urlShort cannot be empty")
-	private String urlShort;
-	
-	@CreationTimestamp
-	private Timestamp createdAt;
-	
-	private int stepCreated;
 }
